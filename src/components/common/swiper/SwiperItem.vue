@@ -2,18 +2,19 @@
   <div class="slide">
     <slot></slot>
   </div>
-</template>
+</template> 
 
 <script>
 	export default {
 		name: "Slide"
 	}
-</script>
+</script> 
 
 <style scoped>
   .slide {
     width: 100%;
     flex-shrink: 0;
+    height: 100%;
   }
 
   .slide img {

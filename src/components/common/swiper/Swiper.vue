@@ -2,10 +2,10 @@
   <div id="hy-swiper">
     <div class="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
       <slot></slot>
-    </div>
+    </div> 
     <slot name="indicator"></slot>
     <div class="indicator">
-      <slot name="indicator" v-if="showIndicator && slideCount>1">
+      <slot name="indicator" v-show="showIndicator && slideCount>1">
         <div
           v-for="(item, index) in slideCount"
           class="indi-item"
@@ -134,6 +134,7 @@ export default {
       this.slideCount = slidesEls.length;
 
       // 3.如果大于1个, 那么在前后分别添加一个slide
+      
       if (this.slideCount > 1) {
         let cloneFirst = slidesEls[0].cloneNode(true);
         let cloneLast = slidesEls[this.slideCount - 1].cloneNode(true);
@@ -228,7 +229,7 @@ export default {
 
 <style scoped>
 #hy-swiper {
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 }
 

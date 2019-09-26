@@ -9,7 +9,7 @@
     name: "TabBar"
   }
 </script>
-
+ 
 <style scoped>
   #tab-bar {
     display: flex;

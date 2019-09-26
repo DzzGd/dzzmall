@@ -1,20 +1,18 @@
 <template>
-  <div class="GoodsListItem">
-    <a :href="goodsItem.link">
-      <img :src="goodsItem.show.img" alt="goodsItem.title" />
+  <div class="GoodsListItem" @click="itemClick">
+      <img v-lazy="showImg" alt="goodsItem.title" @load="imageLoad"/>
       <div class="item-text">
         <p class="item-title">{{goodsItem.title}}</p>
         <span class="price">￥{{goodsItem.price}}</span>
         <span class="collect">❤&nbsp;{{goodsItem.cfav}}</span>
       </div>
-    </a>
   </div>
 </template>
 <script>
 export default {
   name: "GoodsListItem",
   data() {
-    return {};
+    return {}; 
   },
   props: {
     goodsItem: {
@@ -24,7 +22,23 @@ export default {
       }
     }
   },
-  methods: {}
+  computed:{
+    showImg() {
+      return this.goodsItem.image || this.goodsItem.show.img
+    }
+  },
+
+  methods: {
+    imageLoad() {
+      // 监听图片加载完成
+      this.$bus.$emit('itemImageLoad')
+      
+      // this.$bus.$off('itemImageLoad')
+    },
+    itemClick() {
+      this.$router.push('/detail/' + this.goodsItem.iid)
+    }
+  }
 };
 </script>
 <style scoped>
@@ -38,6 +52,7 @@ export default {
 .GoodsListItem img {
   border-radius: 10px;
   width: 100%;
+  min-height:150px; 
 }
 .item-text {
   font-size: 14px;
