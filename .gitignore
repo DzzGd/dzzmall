@@ -1,4 +1,4 @@
-resource
+/resource
 .DS_Store
 node_modules
 /dist
