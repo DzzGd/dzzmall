@@ -1,78 +1,131 @@
 <template>
   <div class="Category">
-    <ul class="content">
-      <li>1a</li>
-      <li>2a</li>
-      <li>3a</li>
-      <li>4a</li>
-      <li>5a</li>
-      <li>6a</li>
-      <li>7a</li>
-      <li>8a</li>
-      <li>9a</li>
-      <li>10a</li>
-      <li>11a</li>
-      <li>12a</li>
-      <li>13a</li>
-      <li>14a</li>
-      <li>15a</li>
-      <li>16a</li>
-      <li>17a</li>
-      <li>18a</li>
-      <li>19a</li>
-      <li>20a</li>
-      <li>21a</li>
-      <li>22a</li>
-      <li>23a</li>
-      <li>24a</li>
-      <li>25a</li>
-      <li>26a</li>
-      <li>27a</li>
-      <li>28a</li>
-      <li>29a</li>
-      <li>30a</li>
-      <li>31a</li>
-      <li>32a</li>
-      <li>33a</li>
-      <li>34a</li>
-      <li>35a</li>
-      <li>36a</li>
-      <li>37a</li>
-      <li>38a</li>
-      <li>39a</li>
-      <li>40a</li>
-      <li>41a</li>
-      <li>42a</li>
-      <li>43a</li>
-      <li>44a</li>
-      <li>45a</li>
-      <li>46a</li>
-      <li>47a</li>
-      <li>48a</li>
-      <li>49a</li>
-      <li>50a</li>
-    </ul>
+    <category-tab-menu
+      :tab-menu="tabMenu"
+      @getDataOfTabMenu="getDataOfTabMenu"
+      class="tab-menu"
+    ></category-tab-menu>
+    <div class="wrap">
+      <category-goods-detail :tab-menus-detail="tabMenusDetail" class="goods-detail"></category-goods-detail>
+      <tab-control :titles="tabTitles" class="tabControl" @changeTabControlItem="changeTabControl"></tab-control>
+      <goods-list :goods="showGoods" class="goods-list"></goods-list>
+    </div>
   </div>
 </template>
 <script>
-import BScroll from 'better-scroll'
+import {
+  getCategoryData,
+  getDetails,
+  getTabControlData
+} from "network/category";
+
+import CategoryTabMenu from "./childComps/CategoryTabMenu";
+import CategoryGoodsDetail from "./childComps/CategoryGoodsDetail";
+import TabControl from "components/content/tabControl/TabControl";
+import GoodsList from "components/content/goods/GoodsList";
+
 export default {
   name: "Category",
   data() {
     return {
-      bs: null
+      tabTitles: ["综合", "新品", "销量"],
+      tabMenu: null,
+      tabMenusDetail: null,
+      TabControlDetail: null,
+      goods: {
+        pop: { name: "pop", list: [] },
+        new: { name: "new", list: [] },
+        sell: { name: "sell", list: [] }
+      },
+      currentType: "pop",
+      miniWallkey: null
     };
   },
-  mounted() {
-    this.bs = new BScroll(document.querySelector('.Category'))
+  created() {
+    this.getMultiData();
   },
-  methods: {}
+  mounted() {},
+  methods: {
+    getMultiData() {
+      getCategoryData().then(res => {
+        this.tabMenu = res.data.category.list;
+        this.showTabMenusDetail(this.tabMenu[0].maitKey);
+        this.miniWallkey = this.tabMenu[0].miniWallkey
+        this.getTabControlDetail(this.currentType, this.miniWallkey);
+      });
+    },
+    showTabMenusDetail(maitKey) {
+      getDetails(maitKey).then(res => {
+        this.tabMenusDetail = res.data.list;
+      });
+    },
+    getDataOfTabMenu(maitKey, miniWallkey) {
+      this.showTabMenusDetail(maitKey)
+
+      this.miniWallkey = miniWallkey
+      this.getTabControlDetail(this.currentType)
+    },
+    getTabControlDetail(type) {
+      getTabControlData(type, this.miniWallkey).then(res => {
+        this.goods[type].list = res;
+      });
+    },
+    changeTabControl(index) {
+      switch (index) {
+        case 0:
+          this.currentType = "pop";
+          break;
+        case 1:
+          this.currentType = "new";
+          break;
+        case 2:
+          this.currentType = "sell";
+          break;
+        default:
+          this.currentType = "pop";
+          break;
+      }
+      this.getTabControlDetail(this.currentType);
+    }
+  },
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list;
+    }
+  },
+
+  components: {
+    CategoryTabMenu,
+    CategoryGoodsDetail,
+    TabControl,
+    GoodsList
+  }
 };
 </script>
 <style scoped>
-.Category{
-  height: 300px;
-  background-color: azure;
-  /* overflow-y: scroll; */
+.Category {
+}
+.tabControl {
+  /* padding-bottom: 50px; */
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+}
+.goods-list{
+  border-radius: 10px;
+  border-top: 1px solid #eee;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+}
+/* .tab-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.goods-detail {
+  width: 100%;
+} */
+.wrap {
+  margin-left: 100px;
+  width: 275px;
 }
 </style>

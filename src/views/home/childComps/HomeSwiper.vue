@@ -7,7 +7,7 @@
     </swiper-item>
   </swiper>
 </template>
-
+ 
 <script>
 import { Swiper, SwiperItem } from "components/common/swiper";
 export default {

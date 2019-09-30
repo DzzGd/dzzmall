@@ -3,7 +3,6 @@
     <div class="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
       <slot></slot>
     </div> 
-    <slot name="indicator"></slot>
     <div class="indicator">
       <slot name="indicator" v-show="showIndicator && slideCount>1">
         <div
@@ -16,7 +15,7 @@
     </div>
   </div>
 </template>
-
+ 
 <script>
 export default {
   name: "Swiper",
@@ -42,6 +41,8 @@ export default {
       default: true
     }
   },
+  created() {
+  },
   data: function() {
     return {
       slideCount: 0, // 元素个数
@@ -53,14 +54,14 @@ export default {
   },
   mounted: function() {
     setTimeout(() => {
-      // 1.操作D OM, 在前后添加Slide
+      // 1.操作DOM, 在前后添加Slide
       this.handleDom();
       // 2.开启定时器
       this.startTimer();
-    }, 500);
+    },500);
   },
   methods: {
-    /**
+    /** 
      * 定时器操作
      */
     startTimer: function() {

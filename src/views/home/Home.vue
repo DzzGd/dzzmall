@@ -8,23 +8,23 @@
       class="tab-control"
       @changeTabControlItem="changeItem"
       v-show="isTabFixed"
-      ref="tabControl1"
-    ></tab-control>
+      ref="tabControl1">
+    </tab-control>
     <scroll
       class="content"
       ref="scroll"
       :probe-type="3"
       @scroll="scrollPosition" 
       :pull-up-load="true"
-      @pullingUp="loadMore"
-    >
+      @pullingUp="loadMore">
+
       <home-swiper :banner="banner" @swiperImgLoad="swiperImgLoad">
-
       </home-swiper>
-      <home-recommend :recommend="recommend">
 
-      </home-recommend>
+      <home-recommend :recommend="recommend"></home-recommend>
+
       <home-feature></home-feature>
+
       <tab-control
         :titles="['流行', '新款', '精选']"
         @changeTabControlItem="changeItem"
@@ -37,17 +37,17 @@
   </div>
 </template>
 <script>
-import HomeSwiper from "./childComps/HomeSwiper";
-import HomeRecommend from "./childComps/HomeRecommend";
-import HomeFeature from "./childComps/HomeFeature";
+import HomeSwiper     from "./childComps/HomeSwiper";
+import HomeRecommend  from "./childComps/HomeRecommend";
+import HomeFeature    from "./childComps/HomeFeature";
 
-import NavBar from "components/common/navbar/NavBar";
-import TabControl from "components/content/tabControl/TabControl";
-import GoodsList from "components/content/goods/GoodsList";
-import Scroll from "components/common/scroll/Scroll";
+import NavBar         from "components/common/navbar/NavBar";
+import TabControl     from "components/content/tabControl/TabControl";
+import GoodsList      from "components/content/goods/GoodsList";
+import Scroll         from "components/common/scroll/Scroll";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
-import { itemListMixin, backToTop } from "common/mixin"
+import { itemListMixin, backToTop }       from "common/mixin"
 export default {
   name: "Home",
   data() {
@@ -82,7 +82,6 @@ export default {
     }
   },
   mounted() {
-
   },
   activated() {
     this.$refs.scroll.refresh();
@@ -96,7 +95,7 @@ export default {
   methods: {
     getHomeMultidata() {
       getHomeMultidata().then(res => {
-        this.banner = res.data.banner.list;
+        this.banner    = res.data.banner.list;
         this.recommend = res.data.recommend.list;
       });
     },

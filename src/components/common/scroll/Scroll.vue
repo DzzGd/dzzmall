@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper" ref="wrapper">
-    <div class="content">
+  <div class="wrapper" ref="wrapper" id="Scroll">
+    <div class="content" id="content">
       <slot></slot>
     </div>
   </div>
@@ -26,6 +26,13 @@ export default {
     }
   },
   mounted() {
+    const pcontent = document.querySelector('#content')
+    pcontent.addEventListener('touchstart', e => {
+      // e.stopPropagation()
+    })
+    pcontent.addEventListener('wheel', e => {
+      e.stopPropagation()
+    })
     // 创建对象
     this.scroll = new BScroll(this.$refs.wrapper, {
       click: true,
