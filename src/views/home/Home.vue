@@ -18,9 +18,9 @@
       :pull-up-load="true"
       @pullingUp="loadMore">
 
-      <home-swiper :banner="banner" @swiperImgLoad="swiperImgLoad">
+      <home-swiper :banner="banner" ><!-- @swiperImgLoad="swiperImgLoad" -->
       </home-swiper>
-
+ 
       <home-recommend :recommend="recommend"></home-recommend>
 
       <home-feature></home-feature>
@@ -125,6 +125,7 @@ export default {
       this.show = Math.abs(position.y) < 1000 ? false : true;
 
       // 决定tabcontrol是否吸顶
+      this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
       this.isTabFixed = -position.y > this.tabOffsetTop ? true : false;
     },
     // 上拉记载更多
@@ -132,10 +133,10 @@ export default {
       this.getHomeGoods(this.currentType);
       this.$refs.scroll.finishPullUp();
     },
-    swiperImgLoad() {
-      // 图片加载完后 刷新tabcontrol的offsettop值
-      this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
-    }
+    // swiperImgLoad() {
+    //   // 图片加载完后 刷新tabcontrol的offsettop值
+    //   this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
+    // }
   },
   components: {
     NavBar,

@@ -26,13 +26,13 @@ export default {
     }
   },
   mounted() {
-    const pcontent = document.querySelector('#content')
-    pcontent.addEventListener('touchstart', e => {
-      // e.stopPropagation()
-    })
-    pcontent.addEventListener('wheel', e => {
-      e.stopPropagation()
-    })
+    // const pcontent = document.querySelector('#content')
+    // pcontent.addEventListener('touchstart', e => {
+    //   // e.stopPropagation()
+    // })
+    // pcontent.addEventListener('wheel', e => {
+    //   e.stopPropagation()
+    // })
     // 创建对象
     this.scroll = new BScroll(this.$refs.wrapper, {
       click: true,
