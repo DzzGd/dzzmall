@@ -1,7 +1,7 @@
 <template>
   <div class="CategoryGoodsDetail">
     <div class="imgItem" v-for="item in tabMenusDetail" :key="item.acm">
-      <a :href="item.link">
+      <a :href="item.link" @click.prevent="showTip(item.link)">
         <img :src="item.image" :alt="item.title" />
         <p class="title">{{item.title}}</p>
       </a>
@@ -21,6 +21,14 @@ export default {
       default() {
         return [];
       }
+    }
+  },
+  methods: {
+    showTip(link) {
+      this.$toast.show("进入外部链接", 1000);
+      setTimeout(() => {
+        window.location.href = link;
+      }, 500);
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="recommend">
     <div v-for="item in recommend" :key="item.image" class="item">
-      <a :href="item.link">
+      <a :href="item.link" @click.prevent="showTip(item.link)">
         <img :src="item.image" :alt="item.title" />
         <span class="des">{{item.title}}</span>
       </a>
@@ -18,6 +18,14 @@ export default {
       default() {
         return [];
       }
+    }
+  },
+  methods: {
+    showTip(link) {
+      this.$toast.show('进入外部链接', 1000)
+      setTimeout(() => {
+        window.location.href = link
+      }, 500);
     }
   }
 };

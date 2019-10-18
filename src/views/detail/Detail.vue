@@ -144,7 +144,7 @@ export default {
       product.desc  = this.goods.desc
       product.price = this.goods.realPrice
       product.iid   = this.iid
-      
+       
       // 加入购物车
       this.addCart(product)
           .then(res => {

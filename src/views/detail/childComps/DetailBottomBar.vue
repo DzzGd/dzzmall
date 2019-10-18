@@ -16,7 +16,7 @@
     <div>购买</div>
   </div>
 </template>
- 
+  
 <script>
 export default {
   name: "DetailBottomBar",

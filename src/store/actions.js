@@ -6,6 +6,7 @@ import {
 export default {
   addCart({ state, commit }, payLoad) {
     return new Promise((resolve, reject) => {
+      let num = 1
             // 是否有该商品
       let oldProduct = state.cartList.find(item => {
         return item.iid === payLoad.iid
