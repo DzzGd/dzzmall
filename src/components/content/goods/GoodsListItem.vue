@@ -30,7 +30,7 @@ export default {
 
   methods: {
     imageLoad() {
-      // 监听图片加载完成
+      // 监听图片加载完成 
       this.$bus.$emit('itemImageLoad')
       
       // this.$bus.$off('itemImageLoad')

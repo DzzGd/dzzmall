@@ -54,7 +54,3 @@ export function formatDate(date, fmt) {
 function padLeftZero(str) {
   return ('00' + str).substr(str.length)
 }
-
-function toTwo(str) {
-  return str.length === 1 ? '0' + str : str
-}

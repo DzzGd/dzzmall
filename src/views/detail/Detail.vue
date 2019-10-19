@@ -6,7 +6,7 @@
       <detail-swiper ref="swiper" :topImg="topImg"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
-      <detail-goods-info :detailInfo="detailInfo" @imageLoad="imageLoad"></detail-goods-info>
+      <detail-goods-info :detailInfo="detailInfo" @imageLoad="imageLoad"></detail-goods-info> 
       <detail-param-info :paramInfo="goodsParam" ref="params"></detail-param-info>
       <detail-comment-info :commentInfo="commentInfo" ref="comment"></detail-comment-info>
       <goods-list :goods="recommendList" ref="recommend"></goods-list>
@@ -102,7 +102,7 @@ export default {
   mounted() {
     // 这里拿不到数据 因为 组件还没有渲染, 网络请求是异步的 这里是同步的
     // this.toSomePlace.push(this.$refs.params.$el.offsetTop)
-
+    this.$bus.on('itemImageLoad', this.imageLoad)
     // 防抖
     let newImgLoad = debounce(this.imgLoadDebound);
     this.imgLoadListener = () => {
